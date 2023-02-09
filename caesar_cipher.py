@@ -9,10 +9,10 @@ FIRST_CHAR_CODE: int = ord('A')
 LAST_CHAR_CODE: int = ord('Z')
 CHAR_RANGE: int = LAST_CHAR_CODE - FIRST_CHAR_CODE + 1
 
-def encrypt(text: str = cipherText, shiftNumber: int = shift) -> str:
+def caesarCipherText(text: str = cipherText, shiftNumber: int = shift) -> str:
+  print('Encryption/Decrytion in Progress....')
   # Result Placeholder
   result = ''
-  
   # loop thru each letter in the plain text
   for char in text.upper():
     if char.isalpha():
@@ -27,18 +27,21 @@ def encrypt(text: str = cipherText, shiftNumber: int = shift) -> str:
         new_char_code += CHAR_RANGE
       
       new_char = chr(new_char_code)
-    
-      result += new_char
-      
-      
+      result += new_char  
     else:
       result += char
-  print(f'\nEncrypted Text: \n{result}', end='\n\n')
+  print(f'\nResulting Text: \n{result}', end='\n\n')
   print(f'The Cipher Shift Number is {shiftNumber}')
   return result
 
-
 user_message = input("Message to Encrypt\Decrypt:\n")
 user_shift_key = int(input("\nCipher Shift Key: "))
+print('\nEncrypt or Decrypt message')
+encryptOrDecrypt = input('1) Encrypt\n2) Decrypt\n\n').lower()
 
-encrypt(user_message, user_shift_key)
+if encryptOrDecrypt not in ['1','2','encrypt','decrypt']:
+  print('Choose between 1 and 2 or Encrypt and Decrypt')
+else:
+  if encryptOrDecrypt in ['2','decrypt']:
+    user_shift_key = -abs(user_shift_key)
+  caesarCipherText(user_message, user_shift_key)
